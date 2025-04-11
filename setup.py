@@ -24,7 +24,7 @@ setup(
         'Bypass-reCaptcha','Bypass reCaptcha V2','Bypass-reCaptcha-V2',
         'Solve-reCaptcha-V2','Google reCaptcha','Google-reCaptcha'
     ],
-    description='Bypass reCaptcha V3 only by sending requests.',
+    description='Bypassing reCaptcha V3 by sending HTTP requests & solving reCaptcha V2 using speech to text.',
     long_description=README,
     long_description_content_type='text/markdown',
     packages=find_packages(),
@@ -33,9 +33,9 @@ setup(
     classifiers=[
         'Development Status :: 4 - Beta',
         'Intended Audience :: Developers',
+        'License :: OSI Approved :: MIT License',
         'Topic :: Software Development :: Libraries :: Python Modules',
         'Programming Language :: Python :: 3.7',
         'Programming Language :: Python :: 3.8',
-        'Programming Language :: Python :: 3.9',
     ]
 )
