@@ -1,5 +1,5 @@
-from pypasser.structs import Proxy
-from pypasser.exceptions import ConnectionError
+from anti_recaptcha.structs import Proxy
+from anti_recaptcha.exceptions import ConnectionError
 
 import requests
 from typing import Dict, Union

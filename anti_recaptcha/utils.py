@@ -4,7 +4,7 @@ from pydub import AudioSegment
 from time import time
 from random import randint
 
-DOWNLOADS_FOLDER = os.path.join('pypasser', 'reCaptchaV2', 'Downloads')
+DOWNLOADS_FOLDER = os.path.join('anti_recaptcha', 'reCaptchaV2', 'Downloads')
 
 def parse_url(anchor_url: str) -> dict:
     regex = '(?P<endpoint>[api2|enterprise]+)\/anchor\?(?P<params>.*)'

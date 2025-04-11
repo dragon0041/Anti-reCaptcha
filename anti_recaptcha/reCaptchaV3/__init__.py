@@ -1,7 +1,7 @@
-from pypasser.exceptions import RecaptchaTokenNotFound, RecaptchaResponseNotFound
-from pypasser.session import Session
-from pypasser.structs import Proxy
-from pypasser.utils import parse_url
+from anti_recaptcha.exceptions import RecaptchaTokenNotFound, RecaptchaResponseNotFound
+from anti_recaptcha.session import Session
+from anti_recaptcha.structs import Proxy
+from anti_recaptcha.utils import parse_url
 from .constants import POST_DATA, BASE_URL, BASE_HEADERS
 
 import re
@@ -19,7 +19,7 @@ class reCaptchaV3:
         The anchor url.
         
     proxy [Optional]: Proxy or Dict,
-        Proxy object from `pypasser.structs` or dict (for requests library).
+        Proxy object from `anti_recaptcha.structs` or dict (for requests library).
 
     timeout [Optional]: int or float,
         the number of seconds to wait on a response before timing out.

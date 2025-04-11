@@ -10,8 +10,8 @@ import speech_recognition as sr
 from time import sleep
 from typing import Type
 
-from pypasser.exceptions import IpBlock
-from pypasser.utils import download_audio, convert_to_wav
+from anti_recaptcha.exceptions import IpBlock
+from anti_recaptcha.utils import download_audio, convert_to_wav
 
 class reCaptchaV2(object):
     """
