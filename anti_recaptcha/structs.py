@@ -1,5 +1,5 @@
 from dataclasses import dataclass
-from pypasser.utils import proxy_dict
+from anti_recaptcha.utils import proxy_dict
 import enum
 
 class Type(enum.Enum):

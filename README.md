@@ -51,7 +51,7 @@ Note that the anchor urls also can have `/enterprise/anchor` instead of `/api2/a
 &nbsp;
 
 ```python
-from pypasser import reCaptchaV3
+from anti_recaptcha import reCaptchaV3
 
 reCaptcha_response = reCaptchaV3('ANCHOR URL')
 ## use this response in your request ...
@@ -62,8 +62,8 @@ reCaptcha_response = reCaptchaV3('ANCHOR URL')
 ### **Proxy**
 
 ```python
-from pypasser import reCaptchaV3
-from pypasser.structs import Proxy
+from anti_recaptcha import reCaptchaV3
+from anti_recaptcha.structs import Proxy
 
 ## Using Proxy structure
 proxy = Proxy(Proxy.type.HTTPs,'HOST','PORT')
@@ -91,7 +91,7 @@ reCaptcha_response = reCaptchaV3('ANCHOR URL', proxy)
 Default timeout is `20 seconds` but you can change the amount like this:
 
 ```python
-from pypasser import reCaptchaV3
+from anti_recaptcha import reCaptchaV3
 
 reCaptcha_response = reCaptchaV3('ANCHOR URL', timeout = 10)
 ```
@@ -106,7 +106,7 @@ Before start using reCaptchaV2 solver, you must install the following requiremen
 
 After installing requirements, you should pass your webdriver to reCaptchaV2 class then Anti-reCaptcha tries to solve the reCaptcha V2 which is in current tab of browser.
 ```python
-from pypasser import reCaptchaV2
+from anti_recaptcha import reCaptchaV2
 
 # Create an instance of webdriver and open the page has recaptcha v2
 # ...
