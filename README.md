@@ -1,59 +1,68 @@
 # Anti-reCaptcha
-**Anti-reCaptcha** is a Python library for bypassing reCaptchaV3 only by sending 2 requests. In 1st request, gets token of captcha and in 2nd request, gets `rresp` by params and token which gotted in previous step.
 
-Support Python >= 3.7
+**Anti-reCaptcha** is a Python library for bypassing reCaptchaV3 only by sending HTTP requests and solving reCaptchaV2 using speech-to-text engine.
+
+🔴 reCaptchaV3 bypass does not work on all sites. Test on your target to find out.
+
+🐍 Support Python >= 3.7
+
 # Installation
-### From PyPI
+
+### Install from PyPI
+
 ```
 pip install Anti-reCaptcha
 ```
-### From Github (latest repo code)
+
+### And for update
+
+```
+pip install Anti-reCaptcha --upgrade
+```
+
+&nbsp;
+
+### Install from Github (latest repo code)
+
 ```
 pip install git+https://github.com/dragon0041/Anti-reCaptcha@master
 ```
+
 &nbsp;
-# Usage
-## **Option 1: Use the pre-added sites**
-see pre-added sites [here](https://github.com/dragon0041/Anti-reCaptcha/blob/master/pypasser/sites.py).
 
-```python
-from pypasser import reCaptchaBypasser
-from pypasser.sites import spotify_com, snapchat_com
 
-# for Spotify.com
-reCaptcha_response = reCaptchaBypasser(spotify_com)
-## use this response in your requests ...
+# Bypassing **reCaptchaV3**
 
-# for SnapChat.com
-reCaptcha_response = reCaptchaBypasser(snapchat_com)
-## use this response in your requests ...
+To bypass recaptcha v3, first you must find anchor URL.
 
-```
-&nbsp;
-## **Option 2: Use `CustomSite` for unadded sites**
-To use `CustomSite`, first you must find `endpoint` and `params` of anchor URL.
 - Open inspect-element on your browser.
-- Go to web page that has reCaptcha V3.
-- In Network tab you should see a request with URL like this:\
- ```https://www.google.com/recaptcha/api2/anchor?ar=1&k=6LfCVLAUAAAAFwwRnnCFW_J39&co=aHR....```\
- so in this URL, **endpoint** is `api2` (it also can be `enterprise` in another sites).\
-  and **params** is `ar=1&k=6LfCVLAUAAAAFwwRnnCFW_J39&co=aHR...`.
+- Go to the web page that has reCaptcha V3 (not V2 invisible).
+- In Network tab you should see many requests.
+- Type `anchor` in text-field filter to hide unnecessary requests.
+- Now you should see a url like this:
 
+  > ``https://www.google.com/recaptcha/api2/anchor?ar=1&k=6LfCVLAUAAAAFwwRnnCFW_J39&co=aHR....``
+  >
 
-```python
-from pypasser import reCaptchaBypasser
-from pypasser.structs import CustomSite
+  pass this url to `reCaptchaV3` class:
 
-config = CustomSite('endpoint', 'params')
-reCaptcha_response = reCaptchaBypasser(config)
-## use this response in your requests ...
-```
+Note that the anchor urls also can have `/enterprise/anchor` instead of `/api2/anchor` in other sites.
+
 &nbsp;
-## **Use proxy**
 
 ```python
-from pypasser import reCaptchaBypasser
-from pypasser.sites import spotify_com
+from pypasser import reCaptchaV3
+
+reCaptcha_response = reCaptchaV3('ANCHOR URL')
+## use this response in your request ...
+```
+
+&nbsp;
+
+### **Proxy**
+
+```python
+from pypasser import reCaptchaV3
 from pypasser.structs import Proxy
 
 ## Using Proxy structure
@@ -62,33 +71,90 @@ proxy = Proxy(Proxy.type.HTTPs,'HOST','PORT')
 ## with authentication credentials
 # proxy = Proxy(Proxy.type.HTTPs,'HOST','PORT','USERNAME', 'PASSWORD')
 
-reCaptcha_response = reCaptchaBypasser(spotify_com, proxy)
+reCaptcha_response = reCaptchaV3('ANCHOR URL', proxy)
 ```
-_also you can configure it as Dict._
 
+_also you can configure it as Dict._
 
 ```python
 
 proxy = {"http": "http://HOST:PORT",
-         "https": "http://HOST:PORT"}
+         "https": "https://HOST:PORT"}
 
-reCaptcha_response = reCaptchaBypasser(spotify_com, proxy)
+reCaptcha_response = reCaptchaV3('ANCHOR URL', proxy)
 ```
+
 &nbsp;
-## **Set timeout**
+
+### **Timeout**
+
 Default timeout is `20 seconds` but you can change the amount like this:
 
 ```python
-from pypasser import reCaptchaBypasser
-from pypasser.sites import spotify_com
+from pypasser import reCaptchaV3
 
-reCaptcha_response = reCaptchaBypasser(spotify_com, timeout = 10)
+reCaptcha_response = reCaptchaV3('ANCHOR URL', timeout = 10)
 ```
+
 &nbsp;
+
+# Bypassing **reCaptchaV2**
+Before start using reCaptchaV2 solver, you must install the following requirements.
+### **Requirements** :
+- **PocketSphinx** (used as speech-to-text engine)
+- **ffmpeg** (used for audio format conversion)
+
+After installing requirements, you should pass your webdriver to reCaptchaV2 class then Anti-reCaptcha tries to solve the reCaptcha V2 which is in current tab of browser.
+```python
+from pypasser import reCaptchaV2
+
+# Create an instance of webdriver and open the page has recaptcha v2
+# ...
+
+# pass the driver to reCaptchaV2
+is_checked = reCaptchaV2(driver_instance) # it returns bool
+
+```
+
+&nbsp;
+
+### **Arguments**
+**driver**: An instance of webdriver.\
+**Play**: Click on 'PLAY' button. [Default is True means it plays the audio].\
+**Attempts**: Maximum solving attempts for a recaptcha. [Default is 3 times].
+
+```python
+is_checked = reCaptchaV2(
+                    driver = driver_instance,
+                    play = False,
+                    attempts = 5
+                  )
+
+```
+
+
+> Note that Google gonna blocks you if you try to solve many recaptcha via audio challenge. In this case Anti-reCaptcha raises `IpBlock` exception.
+
+&nbsp;
+
 # Exception
-Exception | Description
-----------|------------
-ConnectionError | Raised due to network connectivity-related issues.
-SiteNotSupported | Raised when site not in `sites.json`.
-RecaptchaTokenNotFound | Raised when couldn't find token due to wrong `endpoint` or `params`.
-RecaptchaResponseNotFound | Raised when couldn't find reCaptcha response due to using **Anti-reCaptcha** for site that hasn't reCaptchaV3.
+
+| Exception | Bypass | Description |
+| ---------- | -------------- | --------------- |
+| ConnectionError | reCaptchaV3 | Raised due to network connectivity-related issues. |
+| RecaptchaTokenNotFound | reCaptchaV3 | Raised when couldn't find token due to wrong `anchor_url`. |
+| RecaptchaResponseNotFound | reCaptchaV3 | Raised when couldn't find reCaptcha response due to using **Anti-reCaptcha** for site that hasn't reCaptchaV3. |
+| IpBlock | reCaptchaV2 | Raised due to solving many recaptcha via audio challenge. |
+
+&nbsp;
+
+# Legal Disclaimer
+
+This was made for educational purposes only, nobody which directly involved in this project is responsible for any damages caused.
+**You are responsible for your actions.**
+
+&nbsp;
+
+# License
+
+[MIT](https://choosealicense.com/licenses/mit/)
