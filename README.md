@@ -1,6 +1,6 @@
-# Anti-reCaptcha
+# anti-recaptcha
 
-**Anti-reCaptcha** is a Python library for bypassing reCaptchaV3 only by sending HTTP requests and solving reCaptchaV2 using speech-to-text engine.
+**anti-recaptcha** is a Python library for bypassing reCaptchaV3 only by sending HTTP requests and solving reCaptchaV2 using speech-to-text engine.
 
 🔴 reCaptchaV3 bypass does not work on all sites. Test on your target to find out.
 
@@ -11,13 +11,13 @@
 ### Install from PyPI
 
 ```
-pip install Anti-reCaptcha
+pip install anti-recaptcha
 ```
 
 ### And for update
 
 ```
-pip install Anti-reCaptcha --upgrade
+pip install anti-recaptcha --upgrade
 ```
 
 &nbsp;
@@ -25,7 +25,7 @@ pip install Anti-reCaptcha --upgrade
 ### Install from Github (latest repo code)
 
 ```
-pip install git+https://github.com/dragon0041/Anti-reCaptcha@master
+pip install git+https://github.com/dragon0041/anti-recaptcha@master
 ```
 
 &nbsp;
@@ -104,7 +104,7 @@ Before start using reCaptchaV2 solver, you must install the following requiremen
 - **PocketSphinx** (used as speech-to-text engine)
 - **ffmpeg** (used for audio format conversion)
 
-After installing requirements, you should pass your webdriver to reCaptchaV2 class then Anti-reCaptcha tries to solve the reCaptcha V2 which is in current tab of browser.
+After installing requirements, you should pass your webdriver to reCaptchaV2 class then anti-recaptcha tries to solve the reCaptcha V2 which is in current tab of browser.
 ```python
 from anti_recaptcha import reCaptchaV2
 
@@ -133,7 +133,7 @@ is_checked = reCaptchaV2(
 ```
 
 
-> Note that Google gonna blocks you if you try to solve many recaptcha via audio challenge. In this case Anti-reCaptcha raises `IpBlock` exception.
+> Note that Google gonna blocks you if you try to solve many recaptcha via audio challenge. In this case anti-recaptcha raises `IpBlock` exception.
 
 &nbsp;
 
@@ -143,7 +143,7 @@ is_checked = reCaptchaV2(
 | ---------- | -------------- | --------------- |
 | ConnectionError | reCaptchaV3 | Raised due to network connectivity-related issues. |
 | RecaptchaTokenNotFound | reCaptchaV3 | Raised when couldn't find token due to wrong `anchor_url`. |
-| RecaptchaResponseNotFound | reCaptchaV3 | Raised when couldn't find reCaptcha response due to using **Anti-reCaptcha** for site that hasn't reCaptchaV3. |
+| RecaptchaResponseNotFound | reCaptchaV3 | Raised when couldn't find reCaptcha response due to using **anti-recaptcha** for site that hasn't reCaptchaV3. |
 | IpBlock | reCaptchaV2 | Raised due to solving many recaptcha via audio challenge. |
 
 &nbsp;

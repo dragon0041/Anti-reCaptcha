@@ -13,11 +13,11 @@ requirements = [
 ]
 
 setup(
-    name='Anti-reCaptcha',
+    name='anti-recaptcha',
     version='0.0.1',
     author='Dragon',
     license='MIT',
-    url='https://github.com/dragon0041/Anti-reCaptcha',
+    url='https://github.com/dragon0041/anti-recaptcha',
     install_requires=requirements,
     keywords=[
         'Bypass reCaptcha V3','Bypass-reCaptcha-V3','Bypass reCaptcha',
