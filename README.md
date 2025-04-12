@@ -1,6 +1,6 @@
-# anti-recaptcha
+# Anti-reCaptcha
 
-**anti-recaptcha** is a Python library for bypassing reCaptchaV3 only by sending HTTP requests and solving reCaptchaV2 using speech-to-text engine.
+**Anti-reCaptcha** is a Python library for bypassing reCaptchaV3 only by sending HTTP requests and solving reCaptchaV2 using speech-to-text engine.
 
 🔴 reCaptchaV3 bypass does not work on all sites. Test on your target to find out.
 
@@ -25,7 +25,7 @@ pip install anti-recaptcha --upgrade
 ### Install from Github (latest repo code)
 
 ```
-pip install git+https://github.com/dragon0041/anti-recaptcha@master
+pip install git+https://github.com/dragon0041/Anti-reCaptcha@master
 ```
 
 &nbsp;

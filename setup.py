@@ -14,7 +14,7 @@ requirements = [
 
 setup(
     name='anti-recaptcha',
-    version='0.0.1',
+    version='0.0.2',
     author='Dragon',
     license='MIT',
     url='https://github.com/dragon0041/anti-recaptcha',
