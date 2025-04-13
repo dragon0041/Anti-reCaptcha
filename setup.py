@@ -3,14 +3,7 @@ from setuptools import find_packages, setup
 
 HERE = pathlib.Path(__file__).parent
 README = (HERE / "README.md").read_text(encoding='utf-8')
-
-requirements = [
-    'requests<3.0,>=2.25.1',
-    'PySocks==1.7.1',
-    'SpeechRecognition==3.8.1',
-    'pydub==0.25.1',
-    'selenium',
-]
+REQUIREMENTS = (HERE / "requirements.txt").read_text(encoding='utf-8').splitlines()
 
 setup(
     name='anti-recaptcha',
@@ -18,7 +11,7 @@ setup(
     author='Dragon',
     license='MIT',
     url='https://github.com/dragon0041/anti-recaptcha',
-    install_requires=requirements,
+    install_requires=REQUIREMENTS,
     keywords=[
         'recaptcha solver', 'recaptcha', 'bypass recaptcha', 'anti recaptcha', 'google recaptcha',
         'captcha solver', 'captcha bypass', 'solve captcha', 'auto captcha solve',
