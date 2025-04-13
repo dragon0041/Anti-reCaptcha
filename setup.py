@@ -7,7 +7,7 @@ REQUIREMENTS = (HERE / "requirements.txt").read_text(encoding='utf-8').splitline
 
 setup(
     name='anti-recaptcha',
-    version='0.0.2',
+    version='0.0.3',
     author='Dragon',
     author_email='aherodragon41@gmail.com',
     license='MIT',
