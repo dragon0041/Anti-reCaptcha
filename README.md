@@ -1,6 +1,15 @@
 # Anti-reCaptcha
 
-**Anti-reCaptcha** is a Python library for bypassing reCaptchaV3 only by sending HTTP requests and solving reCaptchaV2 using speech-to-text engine.
+**Anti-reCaptcha** is a Python module designed to automatically solve Google's reCAPTCHA V2 and V3 challenges. Powered by Selenium, it enables full browser automation and human-like interactions, making it ideal for bot developers, automation workflows, and penetration testing tools.
+
+## Key Features
+
+- 🔓 Automatic bypass for reCAPTCHA V2 checkbox and audio challenges
+- 🧠 Intelligent handling of reCAPTCHA V3 score-based verification
+- 🌐 Compatible with headless browsers and proxies
+- 🧪 Built for Selenium, tested with Undetected ChromeDriver
+
+Whether you're building automated scripts, scraping data, or testing CAPTCHA behavior, **Anti-reCaptcha** is your plug-and-play solution for dealing with Google’s CAPTCHA systems.
 
 🔴 reCaptchaV3 bypass does not work on all sites. Test on your target to find out.
 
@@ -14,13 +23,11 @@
 pip install anti-recaptcha
 ```
 
-### And for update
+### To Upgrade
 
 ```
 pip install anti-recaptcha --upgrade
 ```
-
-&nbsp;
 
 ### Install from Github (latest repo code)
 
@@ -28,12 +35,9 @@ pip install anti-recaptcha --upgrade
 pip install git+https://github.com/dragon0041/Anti-reCaptcha@master
 ```
 
-&nbsp;
-
-
 # Bypassing **reCaptchaV3**
 
-To bypass recaptcha v3, first you must find anchor URL.
+To bypass reCAPTCHA V3, first extract the anchor URL:
 
 - Open inspect-element on your browser.
 - Go to the web page that has reCaptcha V3 (not V2 invisible).
@@ -48,16 +52,12 @@ To bypass recaptcha v3, first you must find anchor URL.
 
 Note that the anchor urls also can have `/enterprise/anchor` instead of `/api2/anchor` in other sites.
 
-&nbsp;
-
 ```python
 from anti_recaptcha import reCaptchaV3
 
 reCaptcha_response = reCaptchaV3('ANCHOR URL')
 ## use this response in your request ...
 ```
-
-&nbsp;
 
 ### **Proxy**
 
@@ -84,8 +84,6 @@ proxy = {"http": "http://HOST:PORT",
 reCaptcha_response = reCaptchaV3('ANCHOR URL', proxy)
 ```
 
-&nbsp;
-
 ### **Timeout**
 
 Default timeout is `20 seconds` but you can change the amount like this:
@@ -96,15 +94,16 @@ from anti_recaptcha import reCaptchaV3
 reCaptcha_response = reCaptchaV3('ANCHOR URL', timeout = 10)
 ```
 
-&nbsp;
-
 # Bypassing **reCaptchaV2**
+
 Before start using reCaptchaV2 solver, you must install the following requirements.
+
 ### **Requirements** :
 - **PocketSphinx** (used as speech-to-text engine)
 - **ffmpeg** (used for audio format conversion)
 
 After installing requirements, you should pass your webdriver to reCaptchaV2 class then anti-recaptcha tries to solve the reCaptcha V2 which is in current tab of browser.
+
 ```python
 from anti_recaptcha import reCaptchaV2
 
@@ -115,8 +114,6 @@ from anti_recaptcha import reCaptchaV2
 is_checked = reCaptchaV2(driver_instance) # it returns bool
 
 ```
-
-&nbsp;
 
 ### **Arguments**
 **driver**: An instance of webdriver.\
@@ -132,10 +129,7 @@ is_checked = reCaptchaV2(
 
 ```
 
-
 > Note that Google gonna blocks you if you try to solve many recaptcha via audio challenge. In this case anti-recaptcha raises `IpBlock` exception.
-
-&nbsp;
 
 # Exception
 
@@ -145,8 +139,6 @@ is_checked = reCaptchaV2(
 | RecaptchaTokenNotFound | reCaptchaV3 | Raised when couldn't find token due to wrong `anchor_url`. |
 | RecaptchaResponseNotFound | reCaptchaV3 | Raised when couldn't find reCaptcha response due to using **anti-recaptcha** for site that hasn't reCaptchaV3. |
 | IpBlock | reCaptchaV2 | Raised due to solving many recaptcha via audio challenge. |
-
-&nbsp;
 
 # Legal Disclaimer
 
