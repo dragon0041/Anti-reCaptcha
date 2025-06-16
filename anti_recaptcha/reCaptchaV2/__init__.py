@@ -11,7 +11,7 @@ from time import sleep
 from typing import Type
 
 from anti_recaptcha.exceptions import IpBlock
-from anti_recaptcha.utils import download_audio, convert_to_wav
+from anti_recaptcha.utils import download_audio, convert_to_wav, random_delay
 
 class reCaptchaV2(object):
 	"""
@@ -77,6 +77,7 @@ class reCaptchaV2(object):
 	def __click_check_box__(driver):
 		driver.switch_to.frame(driver.find_element(By.CSS_SELECTOR, 'iframe[title="reCAPTCHA"]'))
 		check_box = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CSS_SELECTOR ,"#recaptcha-anchor")))
+		random_delay()
 		check_box.click()
 		driver.switch_to.default_content()
 	
@@ -84,9 +85,10 @@ class reCaptchaV2(object):
 		iframe = driver.find_element(By.CSS_SELECTOR, 'iframe[src^="https://www.google.com/recaptcha/api2/bframe"]')
 		driver.switch_to.frame(iframe)
 		audio_btn = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CSS_SELECTOR ,"#recaptcha-audio-button")))
+		random_delay()
 		audio_btn.click()
 		driver.switch_to.default_content()
-	
+
 	def __get_audio_link__(driver, play):
 		iframe = driver.find_element(By.CSS_SELECTOR, 'iframe[src^="https://www.google.com/recaptcha/api2/bframe"]')
 		driver.switch_to.frame(iframe)
@@ -94,14 +96,18 @@ class reCaptchaV2(object):
 		link = download_btn.get_attribute('href')
 		if play:
 			play_button = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CSS_SELECTOR, ".rc-audiochallenge-play-button > button")))
+			random_delay()
 			play_button.click()
 		return link
 	
 	def __type_text__(driver, text):
 		text_field = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CSS_SELECTOR ,"#audio-response")))
-		text_field.send_keys(text , Keys.ENTER)
+		random_delay()
+		text_field.send_keys(text)
+		random_delay()
+		text_field.send_keys(Keys.ENTER)
 		driver.switch_to.default_content()
-		
+	
 	def __is_checked__(driver):
 		sleep(3)
 		driver.switch_to.frame(WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CSS_SELECTOR, 'iframe[name^=a]'))))
@@ -112,7 +118,7 @@ class reCaptchaV2(object):
 		except NoSuchElementException:
 			driver.switch_to.default_content()
 			return False
-		
+	
 	def speech_to_text(audio_path: str) -> str:   
 		r = sr.Recognizer()
 		with sr.AudioFile(audio_path) as source:
