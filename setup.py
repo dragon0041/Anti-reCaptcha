@@ -7,7 +7,7 @@ REQUIREMENTS = (HERE / "requirements.txt").read_text(encoding='utf-8').splitline
 
 setup(
     name='anti-recaptcha',
-    version='0.0.4',
+    version='0.0.5',
     author='Dragon',
     author_email='aherodragon41@gmail.com',
     license='MIT',
@@ -31,7 +31,7 @@ setup(
     long_description=README,
     long_description_content_type='text/markdown',
     packages=find_packages(),
-    python_requires=">=3.7,<=3.12",
+    python_requires=">=3.7,<3.13",
     include_package_data=True,
     classifiers=[
         'Development Status :: 5 - Production/Stable',
